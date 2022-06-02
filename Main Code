@@ -1,0 +1,21 @@
+import csv
+import json
+from flask import Flask, jsonify, request
+import logging
+
+app = Flask(__name__)
+
+csvfile = open('/home/Vaisakh/Downloads/AAPL.csv', 'r')
+jsonfile = open('/home/Vaisakh/Downloads/AAPL.json', 'w')
+
+fieldnames = ("Date","Open","High","Low Close*","Adj Close**","Volume")
+reader = csv.DictReader( csvfile, fieldnames)
+for row in reader:
+    json.dump(row, jsonfile)
+    jsonfile.write('\n')
+
+@app.route('/get_details', methods=['GET'])
+def search():
+    date = request.args.get('date')
+    data = jsonfile.objects.get(date=date)
+    return jsonify({"response":data})
