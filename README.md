@@ -1,2 +1,2 @@
 # Assignment_TSWORKS
-Reading and writing a file using an API
+Reading a csv file and writing as a json file using an API
